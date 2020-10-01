@@ -1,0 +1,37 @@
+/* 公用样式 */
+/* 颜色 */
+.cf05 {
+    background-color: #f05b56;
+}
+
+.c4ca {
+    background-color: #4ca6a9;
+}
+
+.c498 {
+    background-color: #498fc1;
+}
+
+.boxcenter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.btnstyle{
+    width: 88px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+    color: #fff;
+}
+/* 时钟样式 */
+.timerstlyl{
+    font-size: 100px;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 30px;
+    display: inline-block;
+}
