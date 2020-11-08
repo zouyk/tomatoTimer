@@ -8,10 +8,21 @@
           <router-link
             class="btnstyle"
             to="/tomatotime"
-            :class="{avtive:history.currenpage===0}"
-          >来次番茄</router-link>
-          <router-link class="btnstyle" to="/resttime" :class="{avtive:history.currenpage===1}">休息片刻</router-link>
-          <router-link class="btnstyle" to="/halftime" :class="{avtive:history.currenpage===2}">小憩一会</router-link>
+            :class="{ avtive: history.currenPage === 0 }"
+            >来次番茄</router-link
+          >
+          <router-link
+            class="btnstyle"
+            to="/resttime"
+            :class="{ avtive: history.currenPage === 1 }"
+            >休息片刻</router-link
+          >
+          <router-link
+            class="btnstyle"
+            to="/halftime"
+            :class="{ avtive: history.currenPage === 2 }"
+            >小憩一会</router-link
+          >
         </div>
         <router-view></router-view>
       </div>
@@ -21,21 +32,20 @@
 
 <script>
 import Head from "@/components/Head";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   components: {
     Head,
   },
   computed: {
     ...mapState({
-      history:"history",
-      styleColor:state=>{
-        return {'background-color':state.history.bg}
-      }
-    }),  
-  }
+      history: "history",
+      styleColor: (state) => {
+        return { "background-color": state.history.bg };
+      },
+    }),
+  },
 };
-
 </script>
 
 <style lang="less" scoped>
@@ -46,7 +56,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 10px 20px;
-  transition:background 1s;
+  transition: background 1s;
   .cont {
     width: 620px;
     height: 356px;

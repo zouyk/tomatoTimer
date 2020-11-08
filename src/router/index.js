@@ -7,6 +7,7 @@ import Home from '../views/Home'
 const routes = [{
   path: '/',
   name: 'Home',
+  redirect:'/tomatotime',
   component: Home,
   children: [{
       path: '/tomatotime',

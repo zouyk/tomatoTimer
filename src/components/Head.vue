@@ -36,7 +36,7 @@ export default {};
     outline: none;
   }
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 900px){
     .setting-text {
       display: none;
     }
