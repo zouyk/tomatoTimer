@@ -1,20 +1,65 @@
 <template>
   <div class="btn_box">
-    <span class="btn_span" :style="fontC">开始</span>
+    <button
+      class="btn_span"
+      :class="{ 'conterBtn-pressed': isPress }"
+      :style="fontC"
+      @click="bandleBtnClick"
+    >
+      {{ isPress ? "停止" : "开始" }}
+    </button>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-   computed:{
-       ...mapState({
-           fontC:state=>{
-               return {color:state.history.bg}
-           }
-       })
-   }
-  //开始还是停止
+  props: {
+    isPress: {
+      //按鈕是否被按下
+      type: Boolean,
+      required: true,
+    },
+    theme: {
+      //按鈕的主題
+      type: Number,
+      default: 0,
+    },
+    onPressedChange: {
+      //按鈕狀態的回調
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    fontC() {
+      let color;
+      switch (this.theme) {
+        case 0:
+          color = "#f05b56";
+          break;
+        case 1:
+          color = "#4ca6a9";
+          break;
+        case 2:
+          color = "#498fc1";
+          break;
+        default:
+          color = "#f05b56";
+          break;
+      }
+      return { color };
+    },
+  },
+  methods: {
+    bandleBtnClick() {
+      //当点击按钮时
+      let isPress = !this.isPress;
+      this.onPressedChange(isPress)
+    },
+  },
 };
 </script>
 
@@ -35,6 +80,14 @@ export default {
   text-align: center;
   font-family: PingFangSC-Semibold;
   transition: color 1s;
-  // transform: scaleY(1.1);
+  outline: none;
+  border: none;
+
+  box-shadow: rgb(235, 235, 235) 0 6px 0;
+  transition: color 0.5s ease-in-out;
+  transform: none;
+}
+.conterBtn-pressed {
+  box-shadow: none;
 }
 </style>
