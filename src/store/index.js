@@ -6,7 +6,6 @@ import * as types from './mutation-types'
 
 const DATE_TYPE = 'mm:ss'
 const getTimerType = (index) => ['tomatoTime', 'restTime', 'halfTime'][index]
-// const setTime = (index) => [20, 1, 15][index]  
 export default createStore({
   state: {
     history: null, //currenpage=0 来一次番茄 1 休息一下  2小憩一会
@@ -52,11 +51,10 @@ export default createStore({
       const toSetTime = moment(state[dealWithKey], DATE_TYPE).subtract(1, 'seconds').format(DATE_TYPE)
       // 计时结束重置时间 并且抬起按钮
       if (toSetTime == "00:00") {
-        //清除当前计数器
-        window.clearInterval(state.currentCounter.timer)
-        //清空状态
+        state.currentCounter && window.clearInterval(state.currentCounter.timer)
         state.currentCounter = null
-        
+        const doneTimeTip = ['来此番茄', '休息片刻', '小憩一会'][counterType]
+        window.alert(`${doneTimeTip}已经结束了!!`)
       }
       state[dealWithKey] = toSetTime
     },
@@ -70,8 +68,14 @@ export default createStore({
       } else {
         const {
           type,
-          timer
+          timer,
+          restTime
         } = payLoad
+
+        if (restTime) {
+          const dealWithKey = getTimerType(type)
+          state[dealWithKey] = restTime
+        }
         state.currentCounter = {
           type,
           timer
@@ -82,14 +86,21 @@ export default createStore({
   actions: {
     //开始计时
     [types.START_COUNTING](context, counterType) {
-      // 没过一秒 commit mutation 减少时间
+      //计时是否结束
+      let restTime = null
+      const dealWithKey = getTimerType(counterType)
+      if (context.state[dealWithKey] === '00:00') {
+        restTime = ['20:00', '05:00', '15:00'][counterType]
+      }
+      //  commit mutation 减少时间
       const timer = window.setInterval(() => {
         context.commit(types.SUBTRACT_COUNTING, counterType)
       }, 1000)
       //缓存定时器 timer
       context.commit(types.SET_COUNTER_TIMER, {
         type: counterType,
-        timer
+        timer,
+        restTime
       })
     },
   },
